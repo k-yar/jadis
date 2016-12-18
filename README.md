@@ -3,7 +3,7 @@ Site web pour l'artiste peintre Jadis
 
 ## Etapes pour faire fonctionner le projet en local:
 
-** 1) Cloner le projet ** 
+**1) Cloner le projet**
 - git clone https://github.com/k-yar/jadis
 
 ** 2) Importer la base de donnée dans phpmyadmin **
