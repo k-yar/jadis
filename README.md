@@ -10,7 +10,7 @@ Site web pour l'artiste peintre Jadis
 - le fichier "jadis.sql" à importer se trouve à la racine du projet
 
 **3) Se rendre sur votre localhost/jadis**
-*le projet devrait être disponible*
+- *le projet devrait être disponible*
 
 ## Accéder au panneau d'administration: 
 
@@ -40,16 +40,16 @@ Site web pour l'artiste peintre Jadis
 ## Composants Joomla installés
 
 **1) Thème installé**
-Artista: https://www.joomlashine.com/joomla-templates/jsn-artista-joomla-template-details.html
+- **Artista**: https://www.joomlashine.com/joomla-templates/jsn-artista-joomla-template-details.html
 
 **2) Extensions installées**
-**PayPerDownload:** 
-lien: https://extensions.joomla.org/extension/pay-per-download
-description: système de paiement Paypal + attribution d'un prix à une ressource (vidéo)
+- **PayPerDownload:** 
+--lien: https://extensions.joomla.org/extension/pay-per-download
+--description: système de paiement Paypal + attribution d'un prix à une ressource (vidéo)
 
-**AllVideoShare:** 
-lien : https://extensions.joomla.org/extension/allvideoshare  
-description: permet d'héberger des vidéos locales
+- **AllVideoShare:** 
+--lien : https://extensions.joomla.org/extension/allvideoshare  
+--description: permet d'héberger des vidéos locales
 
 
 ## Pour aller plus loin:
