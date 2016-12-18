@@ -44,12 +44,12 @@ Site web pour l'artiste peintre Jadis
 
 **2) Extensions installées**
 - **PayPerDownload:** 
---lien: https://extensions.joomla.org/extension/pay-per-download
---description: système de paiement Paypal + attribution d'un prix à une ressource (vidéo)
+-lien: https://extensions.joomla.org/extension/pay-per-download
+-description: système de paiement Paypal + attribution d'un prix à une ressource (vidéo)
 
 - **AllVideoShare:** 
---lien : https://extensions.joomla.org/extension/allvideoshare  
---description: permet d'héberger des vidéos locales
+-lien : https://extensions.joomla.org/extension/allvideoshare  
+-description: permet d'héberger des vidéos locales
 
 
 ## Pour aller plus loin:
