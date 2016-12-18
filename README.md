@@ -42,7 +42,7 @@ Site web pour l'artiste peintre Jadis
 **1) Thème installé**
 Artista: https://www.joomlashine.com/joomla-templates/jsn-artista-joomla-template-details.html
 
-**2) Extensions installées **
+**2) Extensions installées**
 **PayPerDownload:** 
 lien: https://extensions.joomla.org/extension/pay-per-download
 description: système de paiement Paypal + attribution d'un prix à une ressource (vidéo)
@@ -54,6 +54,6 @@ description: permet d'héberger des vidéos locales
 
 ## Pour aller plus loin:
 
-:point_right: Documentation Joomla: https://docs.joomla.org/Main_Page
-:point_right: Documentation Git: https://git-scm.com/documentation
+- :point_right: Documentation Joomla: https://docs.joomla.org/Main_Page
+- :point_right: Documentation Git: https://git-scm.com/documentation
 
