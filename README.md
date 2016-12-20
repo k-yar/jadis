@@ -1,4 +1,4 @@
-# jadis
+﻿# jadis
 Site web pour l'artiste peintre Jadis
 
 ## Etapes pour faire fonctionner le projet en local:
@@ -7,7 +7,9 @@ Site web pour l'artiste peintre Jadis
 - git clone https://github.com/k-yar/jadis
 
 **2) Importer la base de donnée dans phpmyadmin**
+- créer une base de données vide "jadis"
 - le fichier "jadis.sql" à importer se trouve à la racine du projet
+- dans le fichier de configuration.php à la racine du projet, vérifiez l'host, l'user, le password et la db. 
 
 **3) Se rendre sur votre localhost/jadis**
 - *le projet devrait être disponible*
