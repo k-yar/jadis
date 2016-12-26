@@ -16,9 +16,16 @@ defined('_JEXEC') or die('Restricted access');
 // Initialize product info
 $name		= preg_replace('/JSN\s*/i', '', JText::_($info->name));
 $edition	= JSNUtilsText::getConstant('EDITION');
-$token =  JSession::getFormToken();
+$token 		= JSession::getFormToken();
 // Get input object
-$input = JFactory::getApplication()->input;
+$input 			= JFactory::getApplication()->input;
+$pluginParams 	= JSNUtilsExtension::getExtensionParams('plugin', 'jsnframework', 'system');
+$hasToken 		= false;
+if (isset($pluginParams['token_key']) && @$pluginParams['token_key'] != '')
+{
+	$hasToken = true;
+}
+
 ?>
 <div class="jsn-page-update">
 	<div class="jsn-page-content jsn-rounded-large jsn-box-shadow-large jsn-bootstrap">
@@ -43,7 +50,7 @@ if ( ! JSNVersion::isJoomlaCompatible(JSN_FRAMEWORK_REQUIRED_JOOMLA_VER) OR ! JS
 				<p><span class="label label-info"><?php echo JText::_('JSN_EXTFW_GENERAL_IMPORTANT_NOTE'); ?></span></p>
 				<ul>
 					<li>
-						<?php echo JText::sprintf('JSN_EXTFW_GENERAL_DATA_REMAIN', $name, 'update'); ?>						
+						<?php echo JText::sprintf('JSN_EXTFW_GENERAL_DATA_REMAIN', $name, 'update'); ?>
 					</li>
 				</ul>
 			</div>
@@ -93,7 +100,8 @@ if ($hasUpdate)
 			</div>
 		</div>
 <?php
-	if ($authentication)
+
+	if ($authentication && !$hasToken)
 	{
 ?>
 		<div id="jsn-update-login" style="display: none;">

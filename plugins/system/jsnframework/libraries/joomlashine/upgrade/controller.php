@@ -45,7 +45,7 @@ class JSNUpgradeController extends JSNUpdateController
 		$input	= JFactory::getApplication()->input;
 		$jVer	= new JVersion;
 		$info	= JSNUtilsXml::loadManifestCache();
-		
+
 		// Get product edition and identified name
 		$edition	= strtolower(JSNUtilsText::getConstant('EDITION'));
 		$identified	= ($identified = JSNUtilsText::getConstant('IDENTIFIED_NAME')) ? $identified : strtolower($info->name);
@@ -63,7 +63,7 @@ class JSNUpgradeController extends JSNUpdateController
 		try
 		{
 			$result = JSNUtilsHttp::get($url);
-			
+
 			if (substr($result['body'], 0, 3) == 'ERR')
 			{
 				jexit(json_encode(array('message' => JText::sprintf('JSN_EXTFW_LIGHTCART_ERROR_' . $result['body'], JText::_($info->name) . ' PRO'), 'type' => 'error')));
@@ -79,13 +79,24 @@ class JSNUpgradeController extends JSNUpdateController
 
 			if ($edition != 'free')
 			{
-				
-				if ( ! in_array('PRO UNLIMITED', $result->editions))
+				if ($edition == 'individual')
 				{
-					jexit(json_encode(array('message' => JText::sprintf('JSN_EXTFW_UPGRADE_YOUR_ACCOUNT_IS_NOT_PROVIDED_WITH_UNLIMITED_EDITION', JText::_($info->name) . ' PRO Unlimited'), 'type' => 'error')));
-				}
+					if ( ! in_array('DEVELOPER', $result->editions))
+					{
+						jexit(json_encode(array('message' => JText::sprintf('JSN_EXTFW_UPGRADE_YOUR_ACCOUNT_IS_NOT_PROVIDED_WITH_DEVELOPER_EDITION', JText::_($info->name) . ' Developer'), 'type' => 'error')));
+					}
 
-				$result->editions = array('PRO UNLIMITED');
+					$result->editions = array('DEVELOPER');
+				}
+				else
+				{
+					if ( ! in_array('PRO UNLIMITED', $result->editions))
+					{
+						jexit(json_encode(array('message' => JText::sprintf('JSN_EXTFW_UPGRADE_YOUR_ACCOUNT_IS_NOT_PROVIDED_WITH_UNLIMITED_EDITION', JText::_($info->name) . ' PRO Unlimited'), 'type' => 'error')));
+					}
+
+					$result->editions = array('PRO UNLIMITED');
+				}
 			}
 
 			jexit(json_encode($result->editions));

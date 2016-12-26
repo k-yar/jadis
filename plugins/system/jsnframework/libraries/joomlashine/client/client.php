@@ -37,20 +37,20 @@ class JSNClientInformation
 	 * @return void
 	 *
 	 */
-	public static function postClientInformation()
+	public static function postClientInformation($token = '')
 	{
 		$app = JFactory::getApplication();
 		if (!$app->isAdmin())
 		{
 			return false;
 		}
-		
+
 		$user = JFactory::getUser();
 		if (!$user->authorise('core.admin'))
 		{
 			return false;
 		}
-		
+
 		$framework = JTable::getInstance('Extension');
 		$framework->load(
 				array(
@@ -59,43 +59,56 @@ class JSNClientInformation
 						'folder' => 'system'
 				)
 		);
-	
-		
+
+
 		// Check if JoomlaShine extension framework is disabled?
 		if (! $framework->extension_id OR ! $framework->enabled)
 		{
 			return false;
 		}
-	
+
 		// array informations will be post
 		$dataInformations = array();
-	
+
 		// system information
 		$dataInformations['systemInfo'] = self::getSystemInfo();
-	
+
 		// php information
 		$dataInformations['phpInfo'] = self::getPhpSettings();
-	
+
 		// user information
 		$dataInformations['userInfo'] = self::getUserInfo();
-	
+
 		// list ext jsn installed
 		$dataInformations['installedExtList'] = self::getInstalledExtensionList();
 
+		if ($token == '')
+		{
+			$fwparams = json_decode( $framework->params, true );
+			if (count($fwparams))
+			{
+				if (isset($fwparams['token_key']))
+				{
+					$token = $fwparams['token_key'];
+				}
+			}
+		}
+
 		$secret_key = md5($dataInformations['userInfo']['domain'] . $dataInformations['userInfo']['server_ip']);
-		
+
 		$http                       = new http_class;
 		$http->timeout              = 0;
 		$http->data_timeout         = 0;
 		$url                        = JSN_EXT_POST_CLIENT_INFORMATION_URL;
 		$error                      = $http->GetRequestArguments($url,$arguments);
-	
+
 		$arguments["RequestMethod"] = "POST";
 		$arguments["PostValues"] = array(
 				'client_information' => json_encode($dataInformations),
-				'secret_key' => $secret_key
+				'secret_key' => $secret_key,
+				'token'	=> $token
 		);
-	
+
 		try
 		{
 			$error = $http->Open($arguments);
@@ -118,7 +131,7 @@ class JSNClientInformation
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Method to get the php settings
 	 *
@@ -128,13 +141,13 @@ class JSNClientInformation
 	public static function getPhpSettings()
 	{
 		$phpSettings = array();
-			
+
 		$phpSettings['php_built_on']             = php_uname();
 		$phpSettings['php_version']              = phpversion();
 
 		return $phpSettings;
 	}
-	
+
 	/**
 	 * Method to get the system information
 	 *
@@ -146,7 +159,7 @@ class JSNClientInformation
 		$version                             = new JVersion;
 		$platform                            = new JPlatform;
 		$db                                  = JFactory::getDbo();
-	
+
 		$sysInfo                             = array();
 		$sysInfo['database_version']         = $db->getVersion();
 		$sysInfo['database_collation']       = $db->getCollation();
@@ -154,10 +167,10 @@ class JSNClientInformation
 		$sysInfo['server_api']               = php_sapi_name();
 		$sysInfo['joomla_version']           = $version->getLongVersion();
 		$sysInfo['joomla_platform_version']  = $platform->getLongVersion();
-	
+
 		return $sysInfo;
 	}
-	
+
 	/**
 	 * Method to get the user information
 	 *
@@ -170,17 +183,17 @@ class JSNClientInformation
 		$user                  = JFactory::getUser();
 		$customerUsername 	   = $app->getUserState('jsn.installer.customer.username', '');
 		$userInfo              = array();
-	
+
 		$userInfo['domain']    			= JURI::root();
 		$userInfo['server_ip'] 			= self::getServerAddress();
 		if ($customerUsername != '')
 		{
 			$userInfo['client_customer_username'] 	= $customerUsername;
 		}
-		
+
 		return $userInfo;
 	}
-	
+
 	/**
 	 * Method to get list extension install
 	 *
@@ -195,10 +208,10 @@ class JSNClientInformation
 		$installedExtensionList = array();
 		$productLists 			= '"' . implode('","', $products) . '"';
 		$identifiedName 		= '';
-		
+
 		$db = JFactory::getDbo();
 		$q  = $db->getQuery(true);
-	
+
 		// Build query
 		$q->select('*');
 		$q->from($db->quoteName('#__extensions'));
@@ -207,7 +220,7 @@ class JSNClientInformation
 
 		// Execute query
 		$db->setQuery($q);
-		try 
+		try
 		{
 			$extensions = $db->loadObjectList();
 		}
@@ -217,47 +230,47 @@ class JSNClientInformation
 		}
 
 		if (count($extensions))
-		{	
+		{
 			foreach ($extensions as $extension)
-			{				
+			{
 				$manifest = json_decode($extension->manifest_cache);
-				
+
 				$oldDefineFile = JPATH_ADMINISTRATOR . '/components/' . $extension->element . '/defines.' . str_replace('com_', '', $extension->element) . '.php';
-				
+
 				$defineFile = JPATH_ADMINISTRATOR . '/components/' . $extension->element . '/' . str_replace('com_', '', $extension->element) . '.defines.php';
-				
+
 				$installedExtensionList[$extension->element]['edition'] = '';
-				
+
 				if (file_exists($defineFile))
-				{					
+				{
 					$constName = 'JSN_' . strtoupper( str_replace('com_', '', $extension->element) ) . '_EDITION';
 					$constIdentifiedName = 'JSN_' . strtoupper( str_replace('com_', '', $extension->element) ) . '_IDENTIFIED_NAME';
-					
+
 					$defineFileContent = file_get_contents($defineFile);
-					
+
 					if (preg_match('#DEFINE\(\'' . $constName . '\',\s*\'(.*)\'\)\s*;#i', $defineFileContent, $match))
 					{
 						$installedExtensionList[$extension->element]['edition'] = $match[1];
 					}
-					
+
 					if (preg_match('#DEFINE\(\'' . $constIdentifiedName . '\',\s*\'(.*)\'\)\s*;#i', $defineFileContent, $matchIdentifiedName))
 					{
 						$identifiedName = $matchIdentifiedName[1];
 					}
-					
+
 				}
 				elseif (file_exists($oldDefineFile))
 				{
-					$constName = 'JSN_' . strtoupper( str_replace('com_', '', $extension->element) ) . '_EDITION';	
+					$constName = 'JSN_' . strtoupper( str_replace('com_', '', $extension->element) ) . '_EDITION';
 					$constIdentifiedName = 'JSN_' . strtoupper( str_replace('com_', '', $extension->element) ) . '_IDENTIFIED_NAME';
-					
+
 					$oldDefineFileContent = file_get_contents($oldDefineFile);
 
 					if (preg_match('#DEFINE\(\'' . $constName . '\',\s*\'(.*)\'\)\s*;#i', $oldDefineFileContent, $match))
 					{
 						$installedExtensionList[$extension->element]['edition'] = $match[1];
 					}
-					
+
 					if (preg_match('#DEFINE\(\'' . $constIdentifiedName . '\',\s*\'(.*)\'\)\s*;#i', $oldDefineFileContent, $matchIdentifiedName))
 					{
 						$identifiedName = $matchIdentifiedName[1];
@@ -266,25 +279,25 @@ class JSNClientInformation
 				else
 				{
 					$installedExtensionList[$extension->element]['edition'] = '';
-				}	
-				
+				}
+
 				$installedExtensionList[$extension->element]['version'] = $manifest->version;
 				$installedExtensionList[$extension->element]['name']    = strtoupper( str_replace('_', ' ', $extension->element) );
 				$installedExtensionList[$extension->element]['identifiedName'] 	= $identifiedName;
-				
+
 			}
 		}
-		
+
 		return $installedExtensionList;
 	}
-	
+
 	/**
 	 * Method to get server address
 	 *
 	 * @return  string
 	 *
 	 */
-	public static function getServerAddress() 
+	public static function getServerAddress()
 	{
 		if (array_key_exists('SERVER_ADDR', $_SERVER))
 		{
@@ -304,7 +317,7 @@ class JSNClientInformation
 						$ifconfig = shell_exec('/sbin/ifconfig eth0');
 						preg_match('/addr:([\d\.]+)/', $ifconfig, $match);
 						return $match[1];
-					}					
+					}
 				}
 			}
 			return $_SERVER['SERVER_ADDR'];
@@ -329,7 +342,7 @@ class JSNClientInformation
 				return $match[1];
 			}
 		}
-		
+
 		return '';
 	}
 }

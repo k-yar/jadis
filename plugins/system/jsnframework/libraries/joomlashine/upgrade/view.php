@@ -53,7 +53,7 @@ class JSNUpgradeView extends JSNBaseView
 		$app = JFactory::getApplication();
 
 		// Is product upgradable?
-		if ( ! ($edition = JSNUtilsText::getConstant('EDITION')) OR strcasecmp($edition, 'pro unlimited') == 0)
+		if ( ! ($edition = JSNUtilsText::getConstant('EDITION')) OR strcasecmp($edition, 'pro unlimited') == 0 OR strcasecmp($edition, 'developer') == 0)
 		{
 			$app->redirect('index.php?option=' . $app->input->getCmd('option') . '&view=update');
 		}

@@ -19,16 +19,19 @@ defined('DS') OR define('DS', DIRECTORY_SEPARATOR);
 
 // Define identified name and version
 define('JSN_FRAMEWORK_IDENTIFIED_NAME',	'ext_framework');
-define('JSN_FRAMEWORK_VERSION',			'1.6.6');
+define('JSN_FRAMEWORK_VERSION',			'2.0.0');
 
 // Define required Joomla version
 define('JSN_FRAMEWORK_REQUIRED_JOOMLA_VER', '3.0');
 
 // Define necessary constants
-define('JSN_EXT_UPGRADE_DETAILS_URL',	'http://www.joomlashine.com/versioning/product_upgrade.php');
-define('JSN_EXT_VERSION_CHECK_URL',		'http://www.joomlashine.com/versioning/product_version.php?category=cat_extension');
-define('JSN_EXT_DOWNLOAD_UPDATE_URL',	'http://www.joomlashine.com/index.php?option=com_lightcart&controller=remoteconnectauthentication&task=authenticate&tmpl=component&upgrade=yes');
+define('JSN_EXT_UPGRADE_DETAILS_URL',	'https://www.joomlashine.com/versioning/product_upgrade.php');
+define('JSN_EXT_VERSION_CHECK_URL',		'https://www.joomlashine.com/versioning/product_version.php?category=cat_extension');
+define('JSN_EXT_DOWNLOAD_UPDATE_URL',	'https://www.joomlashine.com/index.php?option=com_lightcart&controller=remoteconnectauthentication&task=authenticate&tmpl=component&upgrade=yes');
 define('JSN_EXT_POST_CLIENT_INFORMATION_URL',	'https://www.joomlashine.com/index.php?option=com_lightcart&view=clientinfo&task=clientinfo.getclientinfo');
+define('JSN_EXT_TOKEN_CHECK_URL',	'https://www.joomlashine.com/index.php?option=com_lightcart&view=token&task=token.verify');
+
+define('JSN_EXT_DOWNLOAD_UPDATE_URL_V2',	'https://www.joomlashine.com/index.php?option=com_lightcart&controller=remoteconnectextensionauthentication&task=authenticate&tmpl=component&upgrade=yes');
 
 define('JSN_PATH_FRAMEWORK',	dirname(__FILE__));
 define('JSN_PATH_LIBRARIES',	JSN_PATH_FRAMEWORK . '/libraries');

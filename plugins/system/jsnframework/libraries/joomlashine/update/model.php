@@ -127,6 +127,10 @@ class JSNUpdateModel extends JSNBaseModel
 	 */
 	protected function downloadPackage()
 	{
+		$server = JSN_EXT_DOWNLOAD_UPDATE_URL;
+		// Get jsnframework parameters
+		$plgParams = JSNUtilsExtension::getExtensionParams('plugin', 'jsnframework', 'system');
+
 		// Get Joomla config
 		$config = JFactory::getConfig();
 
@@ -143,11 +147,27 @@ class JSNUpdateModel extends JSNBaseModel
 		$query[] = 'joomla_version=' . $JVersion->RELEASE;
 		$query[] = 'username=' . urlencode($input->getUsername('customer_username'));
 		$query[] = 'password=' . urlencode($input->getString('customer_password'));
+
+		if (isset($plgParams['token_key']) && @$plgParams['token_key'] != '' && $input->getCmd('view', 'update') == 'update')
+		{
+			$query[] = 'token=' . $plgParams['token_key'];
+		}
+
+		if (strtolower($edition) != 'pro unlimited' && strtolower($edition) != 'pro standard' && ($input->getCmd('view', 'update') == 'update' || $input->getCmd('view', 'update') == 'upgrade'))
+		{
+			$domain		= JURI::root();
+			preg_match('@^(?:http://www\.|http://|www\.|http:|https://www\.|https://|www\.|https:)?([^/]+)@i', $domain, $domainFilter);
+			$domain 	= $domainFilter[1];
+			$query[] 	= 'domain=' . urlencode($domain);
+
+			$server = JSN_EXT_DOWNLOAD_UPDATE_URL_V2;
+		}
+
 		$query[] = 'identified_name=' . ($input->getCmd('id') ? $input->getCmd('id') : $identified);
 		$query[] = 'edition=' . strtolower(urlencode($edition));
 
 		// Build final URL for downloading update
-		$url = JSN_EXT_DOWNLOAD_UPDATE_URL . '&' . implode('&', $query);
+		$url = $server . '&' . implode('&', $query);
 
 		// Generate file name for update package
 		$name[] = 'jsn';
@@ -197,10 +217,10 @@ class JSNUpdateModel extends JSNBaseModel
 
 			throw new Exception(JText::sprintf('JSN_EXTFW_LIGHTCART_ERROR_' . $errorCode, JText::_($info->name) . ' ' . strtoupper($edition)));
 		}
-		
+
 		$app 		= JFactory::getApplication();
 		$app->setUserState('jsn.installer.customer.username', $input->getUsername('customer_username' , ''));
-				
+
 		return $path;
 	}
 
@@ -381,7 +401,7 @@ class JSNUpdateModel extends JSNBaseModel
 	 * @return  void
 	 */
 	protected function afterInstall($path)
-	{	
+	{
 		// Clean-up temporary folder and file
 		JFolder::delete($path);
 		JFile::delete("{$path}.zip");
@@ -391,7 +411,7 @@ class JSNUpdateModel extends JSNBaseModel
 		{
 			$data = new JSNDataModel;
 			$data->restore($this->backup);
-			
+
 			require_once JPATH_ROOT . '/plugins/system/jsnframework/libraries/joomlashine/client/client.php';
 			// Post client information
 			JSNClientInformation::postClientInformation();

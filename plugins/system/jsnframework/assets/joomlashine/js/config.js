@@ -24,7 +24,7 @@ function ($)
 
 		$(document).ready($.proxy(function() {
 			this.menuLinks = $('#jsn-config-menu a');
-
+			
 			this.initialize();
 		}, this));
 	};
@@ -54,13 +54,15 @@ function ($)
 						$(this).trigger('click');
 					}, this));
 				}
-
+				
 				self.initPermissionSettings();
 				self.initTooltip();
+				self.initCheckToken();
 			});
 
 			this.initPermissionSettings();
 			this.initTooltip();
+			this.initCheckToken();
 		},
 
 		initPermissionSettings: function() {
@@ -73,6 +75,37 @@ function ($)
 			$('#jsn-config-form label.control-label').tipsy({
 				gravity: 'w',
 				fade: true
+			});
+		},
+		
+		initCheckToken: function () {
+			var self = this;
+			var emsg = $('#check-token-key-msg');
+			var eloading = $('#loading-token-key'); 
+			$('#check-token-key').unbind('click').bind('click', function (event) {
+				eloading.removeClass('hide');
+				emsg.removeClass('label-success').removeClass('label-important');
+				emsg.html('');
+				$.ajax({
+					type: 'GET',
+					dataType: 'json',
+					url: 'index.php?option=' + jsn_ext_option + '&view=configuration&tmpl=component&task=configuration.verifyToken&' + jsn_ext_jtoken + '=1&token=' + $('#jsnconfig_token_key').val(),
+					success: function (response) {
+						if (response) {
+							if (response.result == 'success') 
+							{
+								emsg.html(response.message);
+								emsg.addClass('label-success');
+							} 
+							else 
+							{
+								emsg.html(response.message);
+								emsg.addClass('label-important');
+							}
+							eloading.addClass('hide');
+						}
+					}
+				});				
 			});
 		}
 	};

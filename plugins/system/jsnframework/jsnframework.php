@@ -29,7 +29,7 @@ class PlgSystemJSNFramework extends JPlugin
 	 * @var JApplication
 	 */
 	private static $_app = null;
-	
+
 	/**
 	 * Register JSN Framework initialization.
 	 *
@@ -124,18 +124,18 @@ class PlgSystemJSNFramework extends JPlugin
 			{
 				$xml 	= JSNUtilsXml::load($manifestFile);
 				$attr 	= $xml->attributes();
-		
+
 				if (count($attr))
 				{
 					if (isset($attr['version']) && (string) $attr['version'] != '')
 					{
 						$version = (string) $attr['version'];
-		
+
 						if ($option == 'com_imageshow')
 						{
 							$version = str_replace('.x', '.0', $version);
 						}
-		
+
 						if (version_compare($version, '3.0', '<'))
 						{
 							// Check if all JSN Extensions are compatible with Joomla 3.x, if not, redirect to index.php and show a warning message
@@ -147,7 +147,7 @@ class PlgSystemJSNFramework extends JPlugin
 				}
 			}
 		}
-				
+
 		// Make sure our onAfterRender event handler is the last one executed
 		self::$_app->registerEvent('onAfterRender', 'jsnExtFrameworkFinalize');
 	}
@@ -935,7 +935,7 @@ function jsnExtFrameworkUpdateDependencyAfterInstallExtension($installer, $ident
 			$db	= JFactory::getDbo();
 			$q	= $db->getQuery(true);
 
-			$q->select('manifest_cache, custom_data');
+			$q->select('manifest_cache, custom_data, params');
 			$q->from('#__extensions');
 			$q->where("element = 'jsnframework'");
 			$q->where("type = 'plugin'", 'AND');
@@ -945,6 +945,14 @@ function jsnExtFrameworkUpdateDependencyAfterInstallExtension($installer, $ident
 
 			// Load dependency installation status
 			$status = $db->loadObject();
+
+			// old params
+			$oldParams	 = array();
+
+			if ($status->params != '')
+			{
+				$oldParams = json_decode($status->params, true);
+			}
 
 			$ext = substr($ext, 4);
 			$dep = ! empty($status->custom_data) ? (array) json_decode($status->custom_data) : array();
@@ -966,7 +974,15 @@ function jsnExtFrameworkUpdateDependencyAfterInstallExtension($installer, $ident
 			$q->set("manifest_cache = '" . json_encode($manifestCache) . "'");
 
 			// Backward compatible: keep data in this column also for another old product to recognize
-			$q->set("params = '" . json_encode((object) array_combine($status->custom_data, $status->custom_data)) . "'");
+			$params = array_combine($status->custom_data, $status->custom_data);
+			if (isset($oldParams['token_key']))
+			{
+				$params ['token_key'] = $oldParams['token_key'];
+			}
+
+			$params = json_encode((object) $params);
+
+			$q->set("params = '" . $params . "'");
 
 			$q->where("element = 'jsnframework'");
 			$q->where("type = 'plugin'", 'AND');
@@ -999,7 +1015,7 @@ function jsnExtFrameworkUpdateDependencyBeforeUninstallExtension($identifier)
 		$db	= JFactory::getDbo();
 		$q	= $db->getQuery(true);
 
-		$q->select('manifest_cache, custom_data');
+		$q->select('manifest_cache, custom_data, params');
 		$q->from('#__extensions');
 		$q->where("element = 'jsnframework'");
 		$q->where("type = 'plugin'", 'AND');
@@ -1009,6 +1025,14 @@ function jsnExtFrameworkUpdateDependencyBeforeUninstallExtension($identifier)
 
 		// Load dependency installation status
 		$status = $db->loadObject();
+
+		// old params
+		$oldParams	 = array();
+
+		if ($status->params != '')
+		{
+			$oldParams = json_decode($status->params, true);
+		}
 
 		$ext	= substr($ext, 4);
 		$deps	= ! empty($status->custom_data) ? (array) json_decode($status->custom_data) : array();
@@ -1039,7 +1063,23 @@ function jsnExtFrameworkUpdateDependencyBeforeUninstallExtension($identifier)
 		$q->set("manifest_cache = '" . json_encode($manifestCache) . "'");
 
 		// Backward compatible: keep data in this column also for another old product to recognize
-		$q->set("params = '" . (count($status->custom_data) ? json_encode((object) array_combine($status->custom_data, $status->custom_data)) : '') . "'");
+		if (count($status->custom_data))
+		{
+			$params = array_combine($status->custom_data, $status->custom_data);
+
+			if (isset($oldParams['token_key']))
+			{
+				$params ['token_key'] = $oldParams['token_key'];
+			}
+
+			$params = json_encode((object) $params);
+		}
+		else
+		{
+			$params = '';
+		}
+
+		$q->set("params = '" . $params . "'");
 
 		$q->where("element = 'jsnframework'");
 		$q->where("type = 'plugin'", 'AND');

@@ -58,7 +58,7 @@ class JSNHtmlGenerate
 	 */
 	public static function about($products = array())
 	{
-		$showHelpAndFeedbackSection = 1;	
+		$showHelpAndFeedbackSection = 1;
 		$plgBrand 		= self::checkPlgJSNBrand();
 
 		if ($plgBrand)
@@ -92,7 +92,7 @@ class JSNHtmlGenerate
 		$html[] = '
 	<div class="jsn-product-support">';
 		if ($showHelpAndFeedbackSection)
-		{	
+		{
 			$html[] = self::aboutHelp();
 			$html[] = self::aboutFeedback();
 		}
@@ -152,60 +152,60 @@ class JSNHtmlGenerate
 
 		$showSeeOtherProduct 			= 1;
 		$showUpgradeButton				= 1;
-		$showCopyrightContent 			= 1;	
+		$showCopyrightContent 			= 1;
 		$showAuthorContent 				= 1;
-		
+
 		$replaceThumbnail		= 0;
 		$replacedThumbnail		= '';
-			
+
 		$replaceFooterContent			= 0;
 		$replacedFooterContent			= '';
-		
+
 		$plgBrand 						= self::checkPlgJSNBrand();
-			
+
 		if ($plgBrand)
 		{
 			$dispatcher 	= JEventDispatcher::getInstance();
 			$rload 			= JPluginHelper::importPlugin('system', 'jsnbrand');
-		
+
 			if ($rload === true)
 			{
 				$showUpgradeButton 					= $dispatcher->trigger('showExtUpgradeButton');
 				$showUpgradeButton					= (int) $showUpgradeButton[0];
-				
+
 				$showSeeOtherProduct 				= $dispatcher->trigger('showExtSeeOtherProductSection');
 				$showSeeOtherProduct				= (int) $showSeeOtherProduct[0];
-				
+
 				$showCopyrightContent 				= $dispatcher->trigger('showExtCopyrightContent');
-				$showCopyrightContent				= (int) $showCopyrightContent[0];			
+				$showCopyrightContent				= (int) $showCopyrightContent[0];
 
 				$showAuthorContent 					= $dispatcher->trigger('showExtAuthorContent');
 				$showAuthorContent					= (int) $showAuthorContent[0];
-								
+
 				$replaceThumbnail 					= $dispatcher->trigger('replaceExtThumbnail');
 				$replaceThumbnail					= (int) $replaceThumbnail[0];
-				
+
 				$replacedThumbnail 					= $dispatcher->trigger('getExtThumbnail');
-				$replacedThumbnail					= (string) $replacedThumbnail[0];	
-				
+				$replacedThumbnail					= (string) $replacedThumbnail[0];
+
 				$replaceFooterContent 				= $dispatcher->trigger('replaceExtFooterContent');
 				$replaceFooterContent				= (int) $replaceFooterContent[0];
-				
+
 				$replacedFooterContent 				= $dispatcher->trigger('getExtFooterContent');
-				$replacedFooterContent				= (string) $replacedFooterContent[0];				
+				$replacedFooterContent				= (string) $replacedFooterContent[0];
 				$links['info']	= '#';
 			}
 		}
-		
+
 		$html[] = '
 		<div class="jsn-product-about jsn-pane jsn-bgpattern pattern-sidebar">';
 		$html[] = '
 			<h2 class="jsn-section-header"><a href="' . JRoute::_($links['info']) . '" target="_blank">JSN ' . preg_replace('/JSN\s*/i', '', JText::_($name)) . ' ' . $edition . '</a>';
 		if ($showUpgradeButton)
-		{	
-			if ( ! empty($edition) AND ! empty($links['upgrade']) AND ($pos = strpos('free + pro standard', strtolower($edition))) !== false)
+		{
+			if ( ! empty($edition) AND ! empty($links['upgrade']) AND ($pos = strpos('free + pro standard + individual', strtolower($edition))) !== false)
 			{
-				$html[] = '<a href="' . JRoute::_($links['upgrade']) . '" class="btn pull-right" title="' . (($pos)?JText::_('JSN_EXTFW_ABOUT_UPGRADE_TO_PRO_UNLIMITED'):JText::_('JSN_EXTFW_ABOUT_UPGRADE_TO_PRO')) . '"><span class="label label-important">PRO</span>' . JText::_('JSN_EXTFW_GENERAL_UPGRADE') . '</a>';
+				$html[] = '<a href="' . JRoute::_($links['upgrade']) . '" class="btn pull-right" title="' . (($pos) ? (strtolower($edition) == 'pro standard' ? JText::_('JSN_EXTFW_ABOUT_UPGRADE_TO_PRO_UNLIMITED') : JText::_('JSN_EXTFW_ABOUT_UPGRADE_TO_DEVELOPER')) : JText::_('JSN_EXTFW_ABOUT_UPGRADE_TO_PRO')) . '"><span class="label label-important">' . (strtolower($edition) == 'individual' ? 'DEVELOPER' : 'PRO') . '</span>' . JText::_('JSN_EXTFW_GENERAL_UPGRADE') . '</a>';
 			}
 		}
 		$html[] = '</h2>';
@@ -217,24 +217,24 @@ class JSNHtmlGenerate
 					{
 						$html[] = '<img src="' . JURI::root(true) . '/' . $replacedThumbnail . '" alt="" />';
 					}
-					else 
-					{	
+					else
+					{
 						$html[] = '<a href="' . JRoute::_($links['info']) . '" target="_blank"><img src="' . JURI::root(true) . '/administrator/components/' . JFactory::getApplication()->input->getCmd('option') . '/assets/images/product-thumbnail.png" alt="" /></a>';
 					}
 				$html[] = '</div>
 				<div class="jsn-product-details">
 					<dl>';
 						if ($showAuthorContent)
-						{	
+						{
 							$html[] = '<dt>' . JText::_('JSN_EXTFW_GENERAL_AUTHOR') . ':</dt><dd><a href="' . $info->authorUrl . '">' . $info->author . '</a></dd>';
 						}
-						
+
 						if ($showCopyrightContent)
 						{
-							$html[] = '<dt>' . JText::_('JSN_EXTFW_GENERAL_COPYRIGHT') . ':</dt>							
+							$html[] = '<dt>' . JText::_('JSN_EXTFW_GENERAL_COPYRIGHT') . ':</dt>
 							<dd>' . $info->copyright . '</dd>';
 						}
-						
+
 						$html[] = '<dt>' . JText::_('JSN_EXTFW_GENERAL_VERSION') . ':</dt>
 						<dd>
 							<strong class="jsn-current-version">' . $version . '</strong>&nbsp;-&nbsp;<span id="jsn-check-version-result">';
@@ -272,15 +272,15 @@ class JSNHtmlGenerate
 				</div>
 				<div class="clearbreak"></div>
 			</div>';
-			
 
-			
+
+
 			if ($showSeeOtherProduct)
-			{	
+			{
 				$html[] = '<div class="jsn-product-cta jsn-bgpattern pattern-sidebar">
 					<div class="pull-left">
 						<ul class="jsn-list-horizontal">';
-	
+
 				if ( ! empty($links['review']))
 				{
 					$html[] = '
@@ -288,10 +288,10 @@ class JSNHtmlGenerate
 								<a href="' . JRoute::_($links['review']) . '" target="_blank" class="btn"><i class="icon-comment"></i>&nbsp;' . JText::_('JSN_EXTFW_ABOUT_REVIEW') . '</a>
 							</li>';
 				}
-	
-				
+
+
 				$isHttps = self::isHttps();
-				
+
 				$html[] = '
 							<li><a id="jsn-about-promotion-modal" class="btn" href="'. (($isHttps) ? 'https':'http') . '://www.joomlashine.com/free-joomla-templates-promo.html"><i class="icon-briefcase"></i>&nbsp;' . JText::_('JSN_EXTFW_ABOUT_SEE_OTHER') . '</a></li>
 						</ul>
@@ -426,27 +426,27 @@ class JSNHtmlGenerate
 	public static function footer($products = array(), $echo = true)
 	{
 		JHTML::_('behavior.tooltip');
-		
+
 		$replaceFooterContent			= 0;
 		$replacedFooterContent			= '';
 
 		$plgBrand 						= self::checkPlgJSNBrand();
-			
+
 		if ($plgBrand)
 		{
 			$dispatcher 	= JEventDispatcher::getInstance();
 			$rload 			= JPluginHelper::importPlugin('system', 'jsnbrand');
-		
+
 			if ($rload === true)
 			{
 				$replaceFooterContent 				= $dispatcher->trigger('replaceExtFooterContent');
 				$replaceFooterContent				= (int) $replaceFooterContent[0];
-				
+
 				$replacedFooterContent				= $dispatcher->trigger('getExtFooterContent');
 				$replacedFooterContent				= (string) $replacedFooterContent[0];
-				
+
 				if ($replaceFooterContent)
-				{	
+				{
 					$html[] = '<div id="jsn-footer" class="jsn-page-footer jsn-bootstrap">';
 					$html[] = $replacedFooterContent;
 					$html[] = '</div>';
@@ -458,9 +458,9 @@ class JSNHtmlGenerate
 					else
 					{
 						return implode($html);
-					} 
+					}
 				}
-				
+
 			}
 		}
 		// Get extension manifest cache
@@ -526,10 +526,10 @@ class JSNHtmlGenerate
 
 		$html[] = ' by <a href="http://www.joomlashine.com" target="_blank">JoomlaShine.com</a>';
 
-		if ( ! empty($edition) AND ! empty($links['upgrade']) AND ($pos = strpos('free + pro standard', strtolower($edition))) !== false)
+		if ( ! empty($edition) AND ! empty($links['upgrade']) AND ($pos = strpos('free + pro standard + individual', strtolower($edition))) !== false)
 		{
 			$html[] = '
-		&nbsp;<a class="label label-important" href="' . JRoute::_($links['upgrade']) . '"><strong class="jsn-text-attention">' . JText::_($pos ? 'JSN_EXTFW_GENERAL_UPGRADE_TO_PRO_UNLIMITED' : 'JSN_EXTFW_GENERAL_UPGRADE_TO_PRO') . '</strong></a>';
+		&nbsp;<a class="label label-important" href="' . JRoute::_($links['upgrade']) . '"><strong class="jsn-text-attention">' . JText::_($pos ? (strtolower($edition) == 'pro standard' ? 'JSN_EXTFW_GENERAL_UPGRADE_TO_PRO_UNLIMITED' : 'JSN_EXTFW_GENERAL_UPGRADE_TO_DEVELOPER') : 'JSN_EXTFW_GENERAL_UPGRADE_TO_PRO') . '</strong></a>';
 		}
 
 		$html[] = '
@@ -582,10 +582,10 @@ class JSNHtmlGenerate
 		</a></span>
 		<span class="hasTip" title="' . JText::_('JSN_EXTFW_GENERAL_PAGEBUILDER') . '"><a target="_blank" href="http://www.joomlashine.com/joomla-extensions/jsn-pagebuilder.html">
 			<i class="jsn-icon32 jsn-icon-products jsn-icon-pagebuilder"></i>
-		</a></span>	
+		</a></span>
 		<span class="hasTip" title="' . JText::_('JSN_EXTFW_GENERAL_EASYSLIDER') . '"><a target="_blank" href="http://www.joomlashine.com/joomla-extensions/jsn-easyslider.html">
 			<i class="jsn-icon32 jsn-icon-products jsn-icon-easyslider"></i>
-		</a></span>		
+		</a></span>
 	</li>
 </ul>
 </div>
@@ -696,17 +696,17 @@ class JSNHtmlGenerate
 			else
 			{
 				return false;
-			}			
+			}
 		}
 		catch (Exception $e)
 		{
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Check if Plg JSNTplBrand is installed or not
-	 * 
+	 *
 	 * @return True on success
 	 */
 	public static function checkPlgJSNBrand()

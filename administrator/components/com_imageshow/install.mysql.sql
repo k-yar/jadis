@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `#__imageshow_images` (
 
 CREATE TABLE IF NOT EXISTS `#__imageshow_log` (
   `log_id` int(11) unsigned NOT NULL auto_increment,
-  `user_id` int(11) default NULL,
+  `user_id` int(11) default '0',
   `url` varchar(255) default NULL,
   `result` varchar(255) default NULL,
   `screen` varchar(100) default NULL,

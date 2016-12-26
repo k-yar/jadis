@@ -33,6 +33,7 @@ class JSNUpgradeHelper
 	 */
 	public static function render($info, $introForFree = '', $introForPro = '', $redirAfterFinish = '')
 	{
+
 		require dirname(__FILE__) . '/tmpl/default.php';
 	}
 }

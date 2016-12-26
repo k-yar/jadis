@@ -116,6 +116,49 @@ class JSNConfigModel extends JModelForm
 			$action->addAttribute('ajax', 1);
 		}
 
+
+		// Automatically Token key settings
+		if (isset($xml->section[0]->group[0]->tab))
+		{
+			$tab = $xml->section[0]->group[0]->addChild('tab');
+			$tab->addAttribute('name', 'global-parameter-token-key');
+			$tab->addAttribute('label', 'JSN_EXTFW_CONFIG_TOKEN_KEY');
+
+			$fieldset = $tab->addChild('fieldset');
+			$fieldset->addAttribute('name', 'tokenkey');
+
+			$field = $fieldset->addChild('field');
+		}
+		elseif (isset($xml->section[0]->group[0]->fieldset))
+		{
+			$fieldset = $xml->section[0]->group[0]->addChild('fieldset');
+			$fieldset->addAttribute('name', 'tokenkey');
+			$fieldset->addAttribute('label', 'JSN_EXTFW_CONFIG_TOKEN_KEY');
+
+			$field = $fieldset->addChild('field');
+		}
+		else
+		{
+			$field = $xml->section[0]->group[0]->addChild('field');
+		}
+
+		$field->addAttribute('name', 'token_key');
+		$field->addAttribute('type', 'jsntoken');
+		$field->addAttribute('default', '');
+
+		$field->addAttribute('label', 'JSN_EXTFW_CONFIG_TOKEN_KEY_LABEL');
+		$field->addAttribute('description', 'JSN_EXTFW_CONFIG_TOKEN_KEY_DESC');
+
+
+		if (isset($fieldset))
+		{
+			$action = $fieldset->addChild('action');
+			$action->addAttribute('label', 'JAPPLY');
+			$action->addAttribute('task', 'configuration.save');
+			$action->addAttribute('track', 1);
+			$action->addAttribute('ajax', 1);
+		}
+
 		// Automatically add live update notification settings
 		$group = $xml->section[0]->addChild('group');
 		$group->addAttribute('name', 'update');
@@ -356,6 +399,13 @@ class JSNConfigModel extends JModelForm
 					$this->params[$row->name] = $row->value;
 				}
 			}
+
+			// Get token key
+			$extParams = JSNUtilsExtension::getExtensionParams('plugin', 'jsnframework', 'system');
+			if (isset($extParams['token_key']))
+			{
+				$this->params['token_key'] = $extParams['token_key'];
+			}
 		}
 
 		return $this->params;
@@ -434,6 +484,12 @@ class JSNConfigModel extends JModelForm
 			throw $e;
 		}
 
+		//Save token key to plugin parameter
+		if (isset($data['token_key']))
+		{
+			JSNUtilsExtension::updateExtensionParams( array('token_key' => $data['token_key']), 'plugin', 'jsnframework',  'system' );
+			unset($data['token_key']);
+		}
 		// Get name of config data table
 		$table = '#__jsn_' . preg_replace('/^com_/i', '', JFactory::getApplication()->input->getCmd('option')) . '_config';
 

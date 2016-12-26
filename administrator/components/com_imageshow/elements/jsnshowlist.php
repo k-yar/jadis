@@ -48,7 +48,15 @@ class JFormFieldJsnshowlist extends JFormField
 				$document->addScript(JUri::root(true) . '/media/jui/js/jquery.simplecolors.min.js');
 			}
 		}
-		
+
+		if (($option == 'com_advancedmodules' || $option == 'com_modules') && $view == 'module')
+		{
+			if (file_exists(JPATH_ROOT . '/media/system/js/moduleorder.js'))
+			{
+				JSNHtmlAsset::addScript(JUri::root(true) . '/media/system/js/moduleorder.js');
+			}
+		}
+
 		! class_exists('JSNBaseHelper') OR JSNBaseHelper::loadAssets();
 
 		JHTML::stylesheet('modules/mod_imageshow/assets/css/style.css');

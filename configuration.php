@@ -14,7 +14,7 @@ class JConfig {
 	public $dbtype = 'pdomysql';
 	public $host = 'localhost';
 	public $user = 'root';
-	public $password = 'root';
+	public $password = '';
 	public $db = 'jadis';
 	public $dbprefix = 'isrvu_';
 	public $live_site = '';

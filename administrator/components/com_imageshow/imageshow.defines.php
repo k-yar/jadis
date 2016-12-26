@@ -1,6 +1,6 @@
 <?php
 /**
- * 5.0.2    $Id: defines.imageshow.php 16604 2012-10-02 07:44:24Z giangnd $
+ * 5.0.3    $Id: defines.imageshow.php 16604 2012-10-02 07:44:24Z giangnd $
  * @package    JSN ImageShow
  * @author     JoomlaShine Team <support@joomlashine.com>
  * @copyright  Copyright (C) 2015 JoomlaShine.com. All Rights Reserved.
@@ -13,7 +13,7 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-define('JSN_IMAGESHOW_DEPENDENCY', '[{"type":"plugin","client":"site","folder":"system","name":"jsnframework","identified_name":"ext_framework","publish":"1","lock":"1","title":"JSN Extension Framework System Plugin"},{"type":"plugin","client":"site","folder":"content","dir":"plugins\/content_plugin","name":"imageshow","publish":"1","lock":"1","title":"JSN imageshow Plugin","params":null},{"type":"plugin","client":"site","folder":"system","dir":"plugins\/system_plugin\/imageshow","name":"imageshow","publish":"1","lock":"1","title":"JSN imageshow System Plugin","params":null},{"type":"plugin","client":"site","folder":"editors-xtd","dir":"plugins\/editors_xtd_plugin","name":"imageshow","publish":"1","lock":"1","title":"JSN imageshow Editors Plugin","params":null},{"type":"module","client":"site","dir":"module","name":"mod_imageshow","publish":"1","lock":"1","title":"JSN imageshow Module","params":null},{"type":"module","client":"admin","dir":"admin_module\/mod_imageshow_quickicon","name":"mod_imageshow_quickicon","publish":"1","position":"cpanel","lock":"1","title":"JSN imageshow Quick Icons","params":null},{"type":"plugin","client":"site","folder":"jsnimageshow","name":"sourcepicasa","identified_name":"picasa","publish":"1","lock":"1","title":"JSN ImageShow Default Source"},{"type":"plugin","client":"site","folder":"jsnimageshow","name":"themeclassic","identified_name":"themeclassic","publish":"1","lock":"1","title":"JSN ImageShow Default Theme"}]');
+define('JSN_IMAGESHOW_DEPENDENCY', '[{"type":"plugin","client":"site","folder":"system","name":"jsnframework","identified_name":"ext_framework","publish":"1","lock":"1","title":"JSN Extension Framework System Plugin"},{"type":"plugin","client":"site","folder":"content","dir":"plugins\/content_plugin","name":"imageshow","publish":"1","lock":"1","title":"JSN imageshow Plugin"},{"type":"plugin","client":"site","folder":"system","dir":"plugins\/system_plugin\/imageshow","name":"imageshow","publish":"1","lock":"1","title":"JSN imageshow System Plugin"},{"type":"plugin","client":"site","folder":"editors-xtd","dir":"plugins\/editors_xtd_plugin","name":"imageshow","publish":"1","lock":"1","title":"JSN imageshow Editors Plugin"},{"type":"module","client":"site","dir":"module","name":"mod_imageshow","publish":"1","lock":"1","title":"JSN imageshow Module"},{"type":"module","client":"admin","dir":"admin_module\/mod_imageshow_quickicon","name":"mod_imageshow_quickicon","publish":"1","position":"cpanel","lock":"1","title":"JSN imageshow Quick Icons"},{"type":"plugin","client":"site","folder":"jsnimageshow","name":"sourcepicasa","identified_name":"picasa","publish":"1","lock":"1","title":"JSN ImageShow Default Source"},{"type":"plugin","client":"site","folder":"jsnimageshow","name":"themeclassic","identified_name":"themeclassic","publish":"1","lock":"1","title":"JSN ImageShow Default Theme"}]');
 
 if (is_file(JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_imageshow' . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . 'jsn_is_factory.php'))
 {
@@ -42,7 +42,7 @@ define('JSN_IMAGESHOW_REVIEW_LINK', 'http://www.joomlashine.com/joomla-extension
 define('JSN_IMAGESHOW_UPDATE_LINK', 'index.php?option=com_imageshow&view=update');
 define('JSN_IMAGESHOW_UPGRADE_LINK', 'index.php?option=com_imageshow&view=upgrade');
 define('JSN_IMAGESHOW_EDITION', 'FREE');
-define('JSN_IMAGESHOW_VERSION', '5.0.2');
+define('JSN_IMAGESHOW_VERSION', '5.0.3');
 // IMAGESHOW GLOBAL PATH
 define('JSN_IMAGESHOW_CATEGORY_EXTENSION', 'cat_extension');
 define('JSN_IMAGESHOW_CATEGORY', 'cat_ext_imageshow');

@@ -62,7 +62,7 @@ class PlgSystemJSNFrameworkInstallerScript
 	{
 		//Replace update link for all extensions
 		$this->replaceUpdateLocationForAllExtensions();
-		
+
 		// Get a database connector object
 		$db = JFactory::getDbo();
 
@@ -93,7 +93,7 @@ class PlgSystemJSNFrameworkInstallerScript
 						// Build query to get dependency installation status
 						$q	= $db->getQuery(true);
 
-						$q->select('manifest_cache, custom_data');
+						$q->select('manifest_cache, custom_data, params');
 						$q->from('#__extensions');
 						$q->where("element = 'jsnframework'");
 						$q->where("type = 'plugin'", 'AND');
@@ -103,6 +103,13 @@ class PlgSystemJSNFrameworkInstallerScript
 
 						// Load dependency installation status
 						$status = $db->loadObject();
+
+						// old params
+						$oldParams	 = array();
+						if ($status->params != '')
+						{
+							$oldParams = json_decode($status->params, true);
+						}
 
 						$ext = substr($product, 4);
 						$dep = ! empty($status->custom_data) ? (array) json_decode($status->custom_data) : array();
@@ -124,7 +131,22 @@ class PlgSystemJSNFrameworkInstallerScript
 						$q->set("manifest_cache = '" . json_encode($manifestCache) . "'");
 
 						// Backward compatible: keep data in this column also for another old product to recognize
-						$q->set("params = '" . json_encode((object) array_combine($status->custom_data, $status->custom_data)) . "'");
+
+						if (count($status->custom_data))
+						{
+							$params = array_combine($status->custom_data, $status->custom_data);
+							if (isset($oldParams['token_key']))
+							{
+								$params ['token_key'] = $oldParams['token_key'];
+							}
+
+							$params = json_encode((object) $params);
+						}
+						else
+						{
+							$params = '';
+						}
+						$q->set("params = '" . $params . "'");
 
 						$q->where("element = 'jsnframework'");
 						$q->where("type = 'plugin'", 'AND');
@@ -164,7 +186,7 @@ class PlgSystemJSNFrameworkInstallerScript
 			JFile::delete($cache);
 		}
 	}
-	
+
 	/**
 	 * Replace update link for all extensions
 	 *
@@ -176,7 +198,7 @@ class PlgSystemJSNFrameworkInstallerScript
 		try
 		{
 			class_exists('JSNVersion') OR require_once dirname(__FILE__) . '/libraries/joomlashine/version/version.php';
-				
+
 			foreach (JSNVersion::$products AS $product)
 			{
 				$element = str_replace ('com_', '', $product);
@@ -196,7 +218,7 @@ class PlgSystemJSNFrameworkInstallerScript
 		{
 			return false;
 		}
-	
+
 		return true;
-	}	
+	}
 }

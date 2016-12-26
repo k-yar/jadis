@@ -66,10 +66,10 @@ if ($response != null)
 	<div class="jsn-page-content jsn-rounded-large jsn-box-shadow-large jsn-bootstrap">
 		<span id="jsn-upgrade-cancel"><a class="jsn-link-action" href="<?php echo JRoute::_('index.php?option=' . $input->getCmd('option')); ?>">
 			<?php echo JText::_('JCANCEL'); ?></a></span>
-		<h1><?php echo JText::sprintf($edition == 'free' ? 'JSN_EXTFW_UPGRADE_PAGE_HEAD_FREE' : 'JSN_EXTFW_UPGRADE_PAGE_HEAD_PRO', $name); ?></h1>
+		<h1><?php echo JText::sprintf($edition == 'free' ? 'JSN_EXTFW_UPGRADE_PAGE_HEAD_FREE' : ($edition == 'individual' ? 'JSN_EXTFW_UPGRADE_PAGE_HEAD_INDIVIDUAL' : 'JSN_EXTFW_UPGRADE_PAGE_HEAD_PRO'), $name); ?></h1>
 		<div id="jsn-upgrade-action">
 			<p>
-				<?php echo JText::sprintf($edition == 'free' ? 'JSN_EXTFW_UPGRADE_PAGE_DESC_FREE' : 'JSN_EXTFW_UPGRADE_PAGE_DESC_PRO', $name); ?>
+				<?php echo JText::sprintf($edition == 'free' ? 'JSN_EXTFW_UPGRADE_PAGE_DESC_FREE' : ($edition == 'individual' ? 'JSN_EXTFW_UPGRADE_PAGE_DESC_INDIVIDUAL' : 'JSN_EXTFW_UPGRADE_PAGE_DESC_PRO'), $name); ?>
 				<?php echo JText::_('JSN_EXTFW_GENERAL_WANT_TO_SEND_DATA'); ?>
 			</p>
 			<div class="alert alert-info">
@@ -84,18 +84,18 @@ if ($response != null)
 			<div class="form-actions">
 				<p>
 					<a id="jsn-proceed-button" class="btn btn-primary" href="javascript:void(0)" data-source="<?php echo JRoute::_('index.php?option=' . $input->getCmd('option') . '&view=' . $input->getCmd('view') . '&task=upgrade.download&'.$token.'=1'); ?>">
-						<?php echo JText::_($edition == 'free' ? 'JSN_EXTFW_UPGRADE_BUTTON_FREE' : 'JSN_EXTFW_UPGRADE_BUTTON_PRO'); ?></a>
+						<?php echo JText::_($edition == 'free' ? 'JSN_EXTFW_UPGRADE_BUTTON_FREE' : ($edition == 'individual' ? 'JSN_EXTFW_UPGRADE_BUTTON_INDIVIDUAL' : 'JSN_EXTFW_UPGRADE_BUTTON_PRO')); ?></a>
 				</p>
 				<p>
 					<a href="<?php echo $buyNow; ?>" target="_blank" class="jsn-link-action">
-						<?php echo JText::_($edition == 'free' ? 'JSN_EXTFW_UPGRADE_LINK_FREE' : 'JSN_EXTFW_UPGRADE_LINK_PRO'); ?></a>
+						<?php echo JText::_($edition == 'free' ? 'JSN_EXTFW_UPGRADE_LINK_FREE' : ($edition == 'individual' ? 'JSN_EXTFW_UPGRADE_LINK_INDIVIDUAL' : 'JSN_EXTFW_UPGRADE_LINK_PRO')); ?></a>
 				</p>
 			</div>
 		</div>
 		<div id="jsn-upgrade-login" style="display: none;">
 			<form name="JSNUpgradeLogin" method="POST" class="form-horizontal" autocomplete="off">
 				<h2><?php echo JText::_('JSN_EXTFW_GENERAL_LOGIN_HEAD'); ?></h2>
-				<p><?php echo JText::_('JSN_EXTFW_GENERAL_LOGIN_DESC'); ?></p>			
+				<p><?php echo JText::_('JSN_EXTFW_GENERAL_LOGIN_DESC'); ?></p>
 				<div class="row-fluid">
 					<div class="span6">
 						<div class="control-group">

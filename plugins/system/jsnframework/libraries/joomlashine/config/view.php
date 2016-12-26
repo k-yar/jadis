@@ -46,6 +46,21 @@ class JSNConfigView extends JSNBaseView
 	 */
 	public function display($tpl = null)
 	{
+		// Get JDocument
+		$document = JFactory::getDocument();
+
+		// Get App
+		$app = JFactory::getApplication();
+
+		// Get input
+		$input = $app->input;
+
+		// Get Option
+		$option = $input->getCmd('option', '');
+
+		// Get Joomla Token
+		$token 	= JFactory::getSession()->getFormToken();
+
 		// Get config declaration
 		$configDeclaration = $this->get('Form');
 
@@ -62,6 +77,7 @@ class JSNConfigView extends JSNBaseView
 			array('lang' => JSNUtilsLanguage::getTranslated(array('JSN_EXTFW_GENERAL_LOADING', 'JSN_EXTFW_GENERAL_CLOSE')))
 		);
 
+		$document->addScriptDeclaration('var jsn_ext_option ="' . $option. '";var jsn_ext_jtoken ="' . $token. '";');
 		JSNHtmlAsset::loadScript('jsn/config');
 
 		// Display the template
