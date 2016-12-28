@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `#__payperdownloadplus_affiliates_banners` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 CREATE TABLE IF NOT EXISTS `#__payperdownloadplus_download_links` (
-  `download_id` int(11) NOT NULL auto_increment,
+  `download_id` int(11) NOT NULL auto_increment,	
   `resource_id` int(11) NOT NULL,
   `item_id` varchar(128) NULL,
   `secret_word` varchar(128) NOT NULL,
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `#__payperdownloadplus_resource_licenses` (
   PRIMARY KEY  (`resource_license_id`),
   KEY (`resource_option_parameter`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
+ 
 CREATE TABLE IF NOT EXISTS `#__payperdownloadplus_users_licenses` (
   `user_license_id` int(11) NOT NULL auto_increment,
   `license_id` int(11) NOT NULL,
@@ -134,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `#__payperdownloadplus_users_licenses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 CREATE TABLE IF NOT EXISTS `#__payperdownloadplus_payments` (
-  `payment_id` int(11) NOT NULL auto_increment,
+  `payment_id` int(11) NOT NULL auto_increment,	
   `txn_id` varchar(256) NOT NULL,
   `user_id` int(11) NULL,
   `user_email` varchar(256) NULL,
@@ -159,19 +159,19 @@ CREATE TABLE IF NOT EXISTS `#__payperdownloadplus_payments` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 CREATE TABLE IF NOT EXISTS `#__payperdownloadplus_orders` (
-  `order_id` int(11) NOT NULL auto_increment,
-  `param1` int(11),
-  `param2` int(11),
-  `param3` int(11),
-  `create_time` datetime NULL,
+  `order_id` int(11) NOT NULL auto_increment,	
+  `param1` int(11),	
+  `param2` int(11),	
+  `param3` int(11),	
+  `create_time` datetime NULL,	
   `param4` varchar(256) NULL,
    PRIMARY KEY  (`order_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
-
+	
 
 CREATE TABLE IF NOT EXISTS `#__payperdownloadplus_config` (
-  `config_id` int(11) NOT NULL auto_increment,
+  `config_id` int(11) NOT NULL auto_increment,	
   `usepaypal` int(11) DEFAULT '1',
   `usepayplugin` int(11),
   `paypalaccount` varchar(128),
@@ -208,20 +208,20 @@ CREATE TABLE IF NOT EXISTS `#__payperdownloadplus_config` (
   `show_quick_register` int(11) DEFAULT '0',
   `use_osol_captcha` int(11) DEFAULT '1',
   `license_sort` int(11) DEFAULT '2', /*1- level then name, 2-level then price, 3 - level then expiration days, 4-name then level, 5-price then level, 6 - expiration days then level*/
-  /*Integration with Alpha User points
-	0: no integration,
-	1: Assign points for buying a license,
+  /*Integration with Alpha User points 
+	0: no integration, 
+	1: Assign points for buying a license, 
 	2: Use points to buy a license*/
-  `alphapoints` int(11) DEFAULT '0',
-  `tax_rate` decimal(11,2) DEFAULT '0',
+  `alphapoints` int(11) DEFAULT '0', 
+  `tax_rate` decimal(11,2) DEFAULT '0', 
   `use_discount_coupon` int(11) DEFAULT '0',
    PRIMARY KEY  (`config_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 CREATE TABLE IF NOT EXISTS #__payperdownloadplus_debug (
-	`debug_id` int(11) NOT NULL auto_increment,
+	`debug_id` int(11) NOT NULL auto_increment,	
 	`debug_text` varchar(256),
-	`debug_time` datetime NULL,
+	`debug_time` datetime NULL, 
    PRIMARY KEY  (`debug_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -230,16 +230,16 @@ CREATE TABLE IF NOT EXISTS `#__payperdownloadplus_last_time_check` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 CREATE TABLE IF NOT EXISTS #__payperdownloadplus_user_balance (
-	`user_id` int(11) NOT NULL,
+	`user_id` int(11),	
 	`balance` decimal(11, 2) DEFAULT 0,
-	`currency` varchar(50) NOT NULL,
+	`currency` varchar(50), 
    PRIMARY KEY  (`user_id`, `currency`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 CREATE TABLE IF NOT EXISTS #__payperdownloadplus_coupons (
-	`coupon_id` int(11) NOT NULL auto_increment,
+	`coupon_id` int(11) NOT NULL auto_increment,	
 	`code` varchar(64),
-	`expire_time` datetime NULL,
+	`expire_time` datetime NULL, 
 	`discount` decimal(11, 2) DEFAULT 10,
    PRIMARY KEY  (`coupon_id`),
    KEY (code)
@@ -255,35 +255,35 @@ CREATE TABLE IF NOT EXISTS `#__payperdownloadplus_users_licenses_discount` (
 
 
 CREATE TABLE IF NOT EXISTS #__payperdownloadplus_coupons_users (
-	`coupon_code` varchar(64) NOT NULL,
-	`user_id` int(11) NOT NULL,
+	`coupon_code` varchar(64) NULL,	
+	`user_id` int(11) NOT NULL,	
    PRIMARY KEY  (`coupon_code`, `user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 ALTER TABLE `#__payperdownloadplus_resource_licenses`
-	ADD CONSTRAINT `#__payperdownloadplus_file_licenses_ibfk_1` FOREIGN KEY (`license_id`)
-		REFERENCES `#__payperdownloadplus_licenses` (`license_id`);
-
+	ADD CONSTRAINT `#__payperdownloadplus_file_licenses_ibfk_1` FOREIGN KEY (`license_id`) 
+		REFERENCES `#__payperdownloadplus_licenses` (`license_id`);	  
+	
 ALTER TABLE `#__payperdownloadplus_users_licenses`
-	ADD CONSTRAINT `#__payperdownloadplus_users_licenses_ibfk_1` FOREIGN KEY (`license_id`)
-		REFERENCES `#__payperdownloadplus_licenses` (`license_id`);
-
+	ADD CONSTRAINT `#__payperdownloadplus_users_licenses_ibfk_1` FOREIGN KEY (`license_id`) 
+		REFERENCES `#__payperdownloadplus_licenses` (`license_id`);	
+		
 ALTER TABLE `#__payperdownloadplus_download_links`
-	ADD CONSTRAINT `#__payperdownloadplus_download_links_ibfk_1` FOREIGN KEY (`resource_id`)
-		REFERENCES `#__payperdownloadplus_resource_licenses` (`resource_license_id`) ON DELETE CASCADE;
+	ADD CONSTRAINT `#__payperdownloadplus_download_links_ibfk_1` FOREIGN KEY (`resource_id`) 
+		REFERENCES `#__payperdownloadplus_resource_licenses` (`resource_license_id`) ON DELETE CASCADE;	
 
 ALTER TABLE `#__payperdownloadplus_affiliates_programs`
-	ADD CONSTRAINT `#__payperdownloadplus_affiliates_programs_ibfk_1` FOREIGN KEY (`license_id`)
-		REFERENCES `#__payperdownloadplus_licenses` (`license_id`);
-
+	ADD CONSTRAINT `#__payperdownloadplus_affiliates_programs_ibfk_1` FOREIGN KEY (`license_id`) 
+		REFERENCES `#__payperdownloadplus_licenses` (`license_id`);	
+		
 ALTER TABLE `#__payperdownloadplus_affiliates_users`
-	ADD CONSTRAINT `#__payperdownloadplus_affiliates_users_ibfk_1` FOREIGN KEY (`affiliate_program_id`)
-		REFERENCES `#__payperdownloadplus_affiliates_programs` (`affiliate_program_id`);
-
+	ADD CONSTRAINT `#__payperdownloadplus_affiliates_users_ibfk_1` FOREIGN KEY (`affiliate_program_id`) 
+		REFERENCES `#__payperdownloadplus_affiliates_programs` (`affiliate_program_id`);	
+		
 ALTER TABLE `#__payperdownloadplus_affiliates_banners`
-	ADD CONSTRAINT `#__payperdownloadplus_affiliates_banners_ibfk_1` FOREIGN KEY (`affiliate_program_id`)
+	ADD CONSTRAINT `#__payperdownloadplus_affiliates_banners_ibfk_1` FOREIGN KEY (`affiliate_program_id`) 
 		REFERENCES `#__payperdownloadplus_affiliates_programs` (`affiliate_program_id`);
 
 ALTER TABLE `#__payperdownloadplus_users_licenses_discount`
-	ADD CONSTRAINT `#__payperdownloadplus_users_licenses_discount_ibfk_1` FOREIGN KEY (`license_id`)
-		REFERENCES `#__payperdownloadplus_licenses` (`license_id`);
+	ADD CONSTRAINT `#__payperdownloadplus_users_licenses_discount_ibfk_1` FOREIGN KEY (`license_id`) 
+		REFERENCES `#__payperdownloadplus_licenses` (`license_id`);	 

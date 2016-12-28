@@ -56,8 +56,8 @@ class JConfig {
 	public $unicodeslugs = '0';
 	public $feed_limit = '10';
 	public $feed_email = 'none';
-	public $log_path = '/var/www/html/jadis/administrator/logs';
-	public $tmp_path = '/var/www/html/jadis/tmp';
+	public $log_path = '/var/www/html/jadis2/jadis/administrator/logs';
+	public $tmp_path = '/var/www/html/jadis2/jadis/tmp';
 	public $lifetime = '15';
 	public $session_handler = 'database';
 	public $memcache_persist = '1';
