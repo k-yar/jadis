@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+   	<fieldset name="main" label="COM_FLEXICONTACT_CONFIG_GENERAL_NAME" class="lad-fieldset width-auto">
+        <field name="logging" type="list" default="1" label="COM_FLEXICONTACT_LOGGING"
+            class="form-group width-auto" >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+
+        <field name="email_html" type="list" default="1" label="COM_FLEXICONTACT_HTML"
+            class="form-group width-auto" >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+
+		<field name="autofill" type="list" label="COM_FLEXICONTACT_V_AUTOFILL" default="off" 
+			class="form-group width-auto" desc="COM_FLEXICONTACT_V_AUTOFILL_DESC" >
+            <option value="off">JNO</option>
+            <option value="username">COM_FLEXICONTACT_V_AUTOFILL_USERNAME</option>
+            <option value="name">COM_FLEXICONTACT_NAME</option>
+		</field>
+                
+		<field name="show_copy" type="list" label="COM_FLEXICONTACT_CONFIG_USER_EMAIL_NAME" default="1" 
+			class="form-group width-auto" >
+            <option value="0">COM_FLEXICONTACT_COPYME_NEVER</option>
+            <option value="1">COM_FLEXICONTACT_COPYME_CHECKBOX</option>
+            <option value="2">COM_FLEXICONTACT_COPYME_ALWAYS</option>
+		</field>
+            
+		<field name="button_class" type="text" size="20" label="COM_FLEXICONTACT_CONFIG_BUTTON_CLASS" default=""
+			class="form-group width-auto" desc="COM_FLEXICONTACT_CONFIG_BUTTON_CLASS_DESC" link="http://getbootstrap.com/css/#buttons-options" />
+	</fieldset>
+    
+	<fieldset name="agreement" label="COM_FLEXICONTACT_AGREEMENT_REQUIRED" class="lad-fieldset width-auto" >
+        <field name="agreement_prompt" type="text" size="50" label="COM_FLEXICONTACT_V_PROMPT" default="" 
+            class="form-group" />
+
+        <field name="agreement_name" type="text" size="50" label="COM_FLEXICONTACT_NAME" default="" 
+            class="form-group" />
+
+        <field name="agreement_link" type="text" size="50" label="COM_FLEXICONTACT_LINK" default="" 
+            class="form-group" desc="COM_FLEXICONTACT_AGREEMENT_REQUIRED_DESC" />
+   	</fieldset>
+
+        
+</form>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+   	<fieldset name="main" label="COM_FLEXICONTACT_V_MAGIC_WORD" class="lad-fieldset lad-border lad-half">
+        <field name="magic_image" type="image" value="captcha3.gif" class="lad-float-right" />
+        
+		<field name="magic_word" type="text" size="40" label="COM_FLEXICONTACT_V_MAGIC_WORD" default="" 
+			class="form-group" desc="COM_FLEXICONTACT_V_MAGIC_WORD_DESC" />
+			
+		<field name="magic_word_prompt" type="text" size="40" label="COM_FLEXICONTACT_V_PROMPT" default="" 
+			class="form-group" />
+            
+		<field name="new_captcha_config" type="hidden" size="1" label="" default="1" />
+	</fieldset>
+    
+   	<fieldset name="images" label="COM_FLEXICONTACT_V_IMAGE" class="lad-fieldset lad-border lad-half">
+        <field name="flexi_image" type="image" value="captcha2.gif" class="lad-float-right" />
+        
+		<field name="num_images" type="text" size="4" label="COM_FLEXICONTACT_V_CAPTCHA_NUMBER" default="" 
+			class="form-group" desc="COM_FLEXICONTACT_V_CAPTCHA_DESC" />
+			
+        <field name="raw_images" type="list" default="0" label="COM_FLEXICONTACT_CONFIG_RAW_IMAGE_MODE"
+            class="form-group width-auto" >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+   	</fieldset>
+
+   	<fieldset name="jcap" label="COM_FLEXICONTACT_JOOMLA_CAPTCHA" class="lad-fieldset lad-border lad-half">
+        <field name="j_image" type="image" value="captcha6.gif" class="lad-float-right" />
+        <field name="joomla_captcha" type="list" default="0" label="COM_FLEXICONTACT_ACTIVATE"
+            class="form-group width-auto" >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+   	</fieldset>
+
+        
+</form>

@@ -1,0 +1,28 @@
+.icon-flexicontact    { background:url(lad_20.png) no-repeat; 
+                        vertical-align:middle; height:26px !important; width:32px !important; margin-right:4px !important;}
+
+table.fc_table        {border-collapse:separate; border-spacing:2px;}
+.fc_table td          {padding-bottom:4px; white-space:nowrap;}
+.fc_table td.prompt   {text-align:right; padding-right:10px; vertical-align:top;}
+
+input, textarea, select {margin-bottom:0 !important; width:auto !important;}
+
+/* fieldsets and forms */
+
+div.form-group {margin-bottom:5px; }
+div.form-group > label {width:9em; margin-right:5px; vertical-align:top;}
+.form-inline input	{width:auto !important;}
+.lad-fieldset {display:inline-block; vertical-align:top; margin:0 10px 0 10px; padding:0 10px 0 10px; width:98%;
+    border:1px solid lightgray; border-radius:5px;}
+.lad-border {border:1px #CCC solid; border-radius:4px; }
+.lad-half {width:46%; }
+.lad-fieldset legend {width:auto; border-bottom:none; margin-bottom:0; padding:0 10px 0 10px;}
+.lad-float-right {float:right;}
+.lad-inline label {margin-left:6px;}
+
+@media screen and (max-width:850px) 
+{
+    .lad-half {width:80%; }
+}
+
+.tooltip {font-size:13px !important; font-weight:bold; opacity:1 !important;}

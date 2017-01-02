@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_CONTENT_CATEGORIES_VIEW_DEFAULT_TITLE" option="COM_CONTENT_CATEGORIES_VIEW_DEFAULT_OPTION">
+        <help
+                key="JHELP_MENUS_MENU_ITEM_ARTICLE_CATEGORIES"
+                />
+        <message>
+            <![CDATA[COM_CONTENT_CATEGORIES_VIEW_DEFAULT_DESC]]>
+        </message>
+    </layout>
+
+    <!-- Add fields to the request variables for the layout. -->
+  
+    <!-- Add fields to the parameters object for the layout. -->
+    <fields name="params">
+        <fieldset name="basic" label="JGLOBAL_CATEGORIES_OPTIONS">
+		  <field name="id" type="category"
+                   description="JGLOBAL_FIELD_CATEGORIES_CHOOSE_CATEGORY_DESC"
+                   extension="com_tz_guestbook"
+                   label="JGLOBAL_FIELD_CATEGORIES_CHOOSE_CATEGORY_LABEL"
+                   multiple="true"
+                   default=""
+                    >
+                <option value="">JOPTION_ALL_CATEGORIES</option>
+            </field>
+            <field name="show_subcat_desc_cat"
+                   type="list"
+                   label="COM_TZ_GUESTBOOK_SHOW_CATEGORIES_DESCRIPTION_LABEL"
+                   description="COM_TZ_GUESTBOOK_SHOW_CATEGORIES_DESCRIPTION_DESC">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
+            </field>
+			<field name="show_count_items" type="list"
+                   label="COM_TZ_GUESTBOOK_NUMBER_GUESTBOOK_LABEL"
+                   description="COM_TZ_GUESTBOOK_NUMBER_GUESTBOOK_DESC">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
+            </field>
+            <field name="show_image_cat" type="list"
+                   label="COM_TZ_GUESTBOOK_NUMBER_CATEGORY_ITEMS_LABEL"
+                   description="COM_TZ_GUESTBOOK_NUMBER_CATEGORY_ITEMS_DESC">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
+            </field>
+        </fieldset>
+    </fields>
+</metadata>

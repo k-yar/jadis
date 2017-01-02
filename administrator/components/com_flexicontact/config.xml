@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>  
+	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+		<field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" filter="rules" component="com_flexicontact" section="component">
+			<action name="core.admin" title="JACTION_ADMIN" description="JACTION_ADMIN_COMPONENT_DESC" />
+			<action name="core.manage" title="JACTION_MANAGE" description="JACTION_MANAGE_COMPONENT_DESC" />
+		</field>
+	</fieldset>
+    
+	<fieldset name="basic" label="JOPTIONS">
+		<field name="logging" type="hidden" size="1" default="" label="" />
+		<field name="email_html" type="hidden" size="1" default="" label="" />
+		<field name="autofill" type="hidden" size="1" default="" label="" />
+		<field name="agreement_prompt" type="hidden" size="100" default="" label="" />
+		<field name="agreement_name" type="hidden" size="100" default="" label="" />
+		<field name="agreement_link" type="hidden" size="100" default="" label="" />
+		<field name="show_copy" type="hidden" size="1" default="" label="" />
+		<field name="show_subject" type="hidden" size="1" default="" label="" />
+		<field name="default_subject" type="hidden" size="100" default="" label="" />
+		<field name="area_prompt" type="hidden" size="100" default="" label="" />
+		<field name="area_opt" type="hidden" size="10" default="" label="" />
+		<field name="area_width" type="hidden" size="10" default="" label="" />
+		<field name="area_height" type="hidden" size="10" default="" label="" />
+		<field name="list_opt" type="hidden" size="10" default="" label="" />
+		<field name="list_prompt" type="hidden" size="100" default="" label="" />
+		<field name="list_list" type="hidden" size="5000" default="" label="" />
+		<field name="field_opt1" type="hidden" size="10" default="" label="" />
+		<field name="field_opt2" type="hidden" size="10" default="" label="" />
+		<field name="field_opt3" type="hidden" size="10" default="" label="" />
+		<field name="field_opt4" type="hidden" size="10" default="" label="" />
+		<field name="field_opt5" type="hidden" size="10" default="" label="" />
+		<field name="field_prompt1" type="hidden" size="100" default="" label="" />
+		<field name="field_prompt2" type="hidden" size="100" default="" label="" />
+		<field name="field_prompt3" type="hidden" size="100" default="" label="" />
+		<field name="field_prompt4" type="hidden" size="100" default="" label="" />
+		<field name="field_prompt5" type="hidden" size="100" default="" label="" />
+		<field name="confirm_link" type="hidden" size="100" default="" label="" />
+		<field name="confirm_text" type="hidden" size="100" default="" label="" />
+		<field name="user_template" type="hidden" size="5000" default="" label="" />
+		<field name="admin_template" type="hidden" size="5000" default="" label="" />
+		<field name="page_text" type="hidden" size="5000" default="" label="" />
+		<field name="bottom_text" type="hidden" size="5000" default="" label="" />
+		<field name="raw_images" type="hidden" size="1" default="" label="" />
+		<field name="button_class" type="hidden" size="100" default="" label="" />
+        <field name="num_images" type="hidden" size="5" default="0" label="" />
+        <field name="magic_word" type="hidden" size="30" default="" label="" />
+        <field name="magic_word_prompt" type="hidden" size="30" default="" label="" />
+        <field name="joomla_captcha" type="hidden" size="1" default="" label="" />
+	</fieldset>
+
+</config>
